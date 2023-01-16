@@ -1,0 +1,30 @@
+# crea tu virtualenv fuera del projecto en una carpeta externa
+python3 -m project-venv ../venvs/[project]-venv (Comando no testeado)
+source ../venvs/[project]-venv/bin/activate
+
+# CREA LAS VARIABLES DE ENTORNO NECESARIAS en el viertualenv/bin/activate
+# Compose file evita tener que pasar parámetro de file a docker-compose
+# Django settings evita tener que pasar --config a python manage.py
+Al final del archivo
+export COMPOSE_FILE="local.yml"
+export DJANGO_SETTINGS_MODULE="config.settings.local"
+
+Al final de la función deactivate()
+   unset COMPOSE_FILE
+   unset DJANGO_SETTINGS_MODULE
+
+
+#Para postgres se necesita instalar dependencias previas o cambiar por el paquete binario
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+
+
+python manage.py migrate
+python manage.py runserver
+python manage.py startapp polls
+
+# Exportar datos a fixture e importar
+https://www.coderedcorp.com/blog/how-to-dump-your-django-database-and-load-it-into-/
+python manage.py dumpdata --natural-foreign --natural-primary -e contenttypes -e auth.Permission --indent 2 > dump.json
+# migrate
+loaddata fixtures/dump.json
