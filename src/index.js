@@ -2,11 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import { Home } from './views/home/home';
 import reportWebVitals from './reportWebVitals';
+import Estacion from './views/estacion/estacion';
+import Error from './views/error/error';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    {/* <Error/>
+    <Estacion/>
+    <Home/> */}
     <App />
   </React.StrictMode>
 );
