@@ -42,7 +42,7 @@ export const  Home = ()=>{
           sea más fácil y conveniente que nunca. ¡Prueba nuestro servicio hoy mismo y experimenta la comodidad
           de tener tu patinete siempre listo para rodar!</p>
           </div>
-          <div className='pie'><h1>pie de pagina</h1></div>
+          <div className='pie'><h1>pie de página</h1></div>
 
 
   </div>);

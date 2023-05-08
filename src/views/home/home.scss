@@ -39,7 +39,7 @@ header {
 .portada {
     background-color: #000000;
     padding-top: 10%;
-    height: 125vh;
+    height: 150vh;
     background-size: cover;
     // background-position: center;
     display: flex;
@@ -78,6 +78,10 @@ header {
     cursor: pointer;
   }
 
+.descripcion{
+  padding-top: 10%;
+      height: 300px;
+  }
 .contenido{
   text-align: justify;
   background-color: gainsboro;
