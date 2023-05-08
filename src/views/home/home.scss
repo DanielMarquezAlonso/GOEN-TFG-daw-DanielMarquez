@@ -1,5 +1,45 @@
-
-
-.titulo{
-    color: red;
+.root{
+    background-color: #000000;
 }
+.portada {
+    background-color: #000000;
+
+    height: 100vh;
+    background-image: url("https://www.example.com/imagen-de-portada.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+  }
+  
+  .portada header {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .portada header h1 {
+    font-size: 4rem;
+    text-shadow: 2px 2px #000000;
+  }
+  
+  .portada .descripcion {
+    text-align: center;
+  }
+  
+  .portada .descripcion p {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .portada .descripcion button {
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 0.5rem;
+    color: #000000;
+    cursor: pointer;
+  }

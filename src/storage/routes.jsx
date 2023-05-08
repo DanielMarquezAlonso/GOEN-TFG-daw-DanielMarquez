@@ -1,8 +1,8 @@
 import React, { Suspense, lazy } from 'react';
 import { Router, Route, Routes,  Navigate, BrowserRouter  } from 'react-router-dom';
-import Home from '../views/home/home';
-import Error from '../views/error/error';
-import Estacion from '../views/estacion/estacion';
+import Home from '../views/home/Home';
+import Error from '../views/error/Error';
+import Estacion from '../views/estacion/Estacion';
 // import LazyLoading from '../views/lazy-loading';
 // import Error from '../views/error';
 // import NotFound from '../views/not-found';
@@ -27,10 +27,10 @@ const Navigator = () => (
         <Route path="/" element={<Navigate replace to={'/home'} />} /> 
 
         <Route path="/home" element={<Home/>} />
-        {/* <Route path="/estacion" component={Estacion} /> */}
+        <Route path="/estacion" element={<Estacion/>} />
 
         {/* Error Routing */}
-        {/* <Route path="/error" component={Error} /> */}
+        {/* <Route path="/error" element={Error} /> */}
         {/* Not Found Routing */}
         <Route path="*" element={<Error/>} />
       </Routes>
