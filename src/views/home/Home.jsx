@@ -8,7 +8,7 @@ export const  Home = ()=>{
         <nav>
           <ul>
             <h1>GOEN</h1>
-            <li><a href="/estacion">Inicio</a></li>
+            <li><a href="/estacion">Estación</a></li>
             <li><button>Login</button></li>
 
           </ul>
@@ -35,14 +35,14 @@ export const  Home = ()=>{
           Nos aseguramos de que nuestro servicio de carga sea seguro y confiable. Trabajamos con proveedores 
           de carga de patinetes de confianza que utilizan tecnología de carga de alta calidad para garantizar
           que tu patinete esté completamente cargado y listo para su uso.
-          <br/><br/>
+          <br/><br/>  
           En resumen, nuestra página web de carga de patinetes eléctricos es la solución perfecta para 
           simplificar el proceso de carga de tus patinetes. No importa si eres un usuario ocasional o un
           usuario frecuente de patinetes eléctricos, estamos aquí para hacer que la carga de tus patinetes
           sea más fácil y conveniente que nunca. ¡Prueba nuestro servicio hoy mismo y experimenta la comodidad
           de tener tu patinete siempre listo para rodar!</p>
           </div>
-          <div className='pie'><h1>pie de página</h1></div>
+          <div className='pie'><h4>Daniel Marquez Alonso</h4></div>
 
 
   </div>);
