@@ -1,15 +1,36 @@
+import React from 'react';
+import { Navigate, Link } from 'react-router-dom';
 import './home.scss';
 
 
-export const  Home = ()=>{
+
+class Home extends React.Component {
+  static identifier = 'home';
+
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      message: "Hola Usuario"
+    };
+  }
+  
+ 
+
+  render() {
+    const { message } = this.state;
+
+  
     return(
     <div className="portada">
         <header>
         <nav>
           <ul>
             <h1>GOEN</h1>
-            <li><a href="/estacion">Estación</a></li>
+            <li><Link to="/estacion">Estacion</Link></li>
             <li><button>Login</button></li>
+            <li><button>{ message }</button></li>
+
 
           </ul>
         </nav>
@@ -46,6 +67,7 @@ export const  Home = ()=>{
 
 
   </div>);
+  }
 }
 
 export default Home;

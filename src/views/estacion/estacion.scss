@@ -1,0 +1,37 @@
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5rem;
+    background-color: #5ba4df;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+  }
+  
+  header ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  header ul li {
+    margin: 0 1rem;
+  }
+
+  
+  header ul li button {
+    
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: #000000;
+    border: none;
+    border-radius: 0.5rem;
+    color: #ffffff;
+    cursor: pointer;
+  }
