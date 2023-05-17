@@ -1,6 +1,7 @@
 import React from 'react';
-import { Navigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './home.scss';
+import { handleLogout } from '../logout/Logout';
 
 
 
@@ -11,15 +12,22 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: "Hola Usuario"
+      message: "Hola Usuario",
+      isLoggedIn: sessionStorage.getItem("isLoggedIn"),
     };
+
   }
   
- 
+  handleLogoutClick = () => {
+    handleLogout(); // Llama a la función handleLogout definida en auth.js
+    console.log(sessionStorage.getItem("isLoggedIn"))
+    this.setState({isLoggedIn: sessionStorage.getItem("isLoggedIn")});
+  };
 
   render() {
     const { message } = this.state;
-
+    const { isLoggedIn } = this.state;
+    
   
     return(
     <div className="portada">
@@ -28,8 +36,19 @@ class Home extends React.Component {
           <ul>
             <h1>GOEN</h1>
             <li><Link to="/estacion">Estacion</Link></li>
-            <li><button>Login</button></li>
-            <li><button>{ message }</button></li>
+            {isLoggedIn ? (
+                <li><button onClick={this.handleLogoutClick}>Logout</button></li>
+            ) : (
+                <li><Link to="/login"><button>Login</button></Link></li>
+            )}
+            <li><Link to="/register"><button>Register</button></Link></li>
+            
+            {isLoggedIn ? (
+                <p>Bienvenido, Usuario</p>
+            ) : (
+                <p>Inicia sesión para ver contenido personalizado</p>
+            )}
+            {/* <li><button>{ message }</button></li> */}
 
 
           </ul>

@@ -35,3 +35,27 @@ header {
     color: #ffffff;
     cursor: pointer;
   }
+
+  portada {
+    background-color: #000000;
+    padding-top: 10%;
+    height: 150vh;
+    background-size: cover;
+    // background-position: center;
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+    color: #ffffff;
+  }
+  
+  .portada header {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .portada header h1 {
+    font-size: 4rem;
+    text-shadow: 2px 2px #000000;
+  }
+  
