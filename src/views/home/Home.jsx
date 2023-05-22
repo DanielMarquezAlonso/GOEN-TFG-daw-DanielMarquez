@@ -19,9 +19,12 @@ class Home extends React.Component {
   }
   
   handleLogoutClick = () => {
-    handleLogout(); // Llama a la función handleLogout definida en auth.js
+    // handleLogout(); // Llama a la función handleLogout definida en auth.js
+    // sessionStorage.setItem("isLoggedIn", false);
     console.log(sessionStorage.getItem("isLoggedIn"))
-    this.setState({isLoggedIn: sessionStorage.getItem("isLoggedIn")});
+    // this.setState({isLoggedIn: sessionStorage.getItem("isLoggedIn")});
+    this.setState({isLoggedIn: sessionStorage.setItem("isLoggedIn", false)});
+
   };
 
   render() {
