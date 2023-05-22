@@ -24,6 +24,7 @@ class Profile(models.Model):
     def __str__(self):
         return '{} - {} - {}'.format(self.usuario, self.dni, self.telefono)
 
+
 class Estacion(models.Model):
     nombre = models.CharField(primary_key=True, max_length=100)
     direccion = models.CharField(max_length=100)
