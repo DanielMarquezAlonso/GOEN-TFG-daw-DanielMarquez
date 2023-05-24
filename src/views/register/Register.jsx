@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import './register.scss'
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -39,22 +39,36 @@ const RegisterForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {error && <p>{error}</p>}
+    <div className='portada'>
+        <header>
+          <nav>
+              <h1>GOEN</h1>
+          </nav>
+        </header>
+
+        <div className="register-form-container">
+        <h2 style={{ color: 'black' }}>Registro</h2>
+
+        <form className="register-form" onSubmit={handleSubmit}>
+      {error && <p className="error-message">{error}</p>}
       <input
         type="text"
+        className="input-field"
         placeholder="Nombre de usuario"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
       <input
         type="password"
+        className="input-field"
         placeholder="Contraseña"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button type="submit">Registrarse</button>
+      <button type="submit" className="register-button">Registrarse</button>
     </form>
+        </div>
+    </div>
   );
 };
 

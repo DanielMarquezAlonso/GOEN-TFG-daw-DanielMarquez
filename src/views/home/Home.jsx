@@ -28,13 +28,16 @@ class Home extends Component {
           <nav>
             <ul>
               <h1>GOEN</h1>
-              <li>
+              
+              {isLoggedIn && isLoggedIn !== 'false' ? (
+                <>
+                <li>
                 <Link to="/estacion">Estacion</Link>
               </li>
-              {isLoggedIn && isLoggedIn !== 'false' ? (
                 <li>
                   <button onClick={this.handleLogoutClick}>Logout</button>
                 </li>
+                </>
               ) : (
                 <>
                 <li>

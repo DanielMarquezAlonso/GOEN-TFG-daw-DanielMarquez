@@ -56,7 +56,22 @@ class Estacion extends React.Component {
       console.log("esto ES ESTACION", isLoggedIn)
 
       if (!data || data.length === 0) {
-        return <div>Loading</div>;
+        return (<div className='portada'>
+        <header>
+          <nav>
+            <ul>
+              <h1>GOEN</h1>
+              <li>
+                <Link to='/home'>Home</Link>
+              </li>
+              <li>
+                  <button onClick={this.handleLogoutClick}>Logout</button>
+                </li>
+            </ul>
+          </nav>
+        </header>
+        <div>Loading</div>
+        </div>);
       }
 
       let squareColor = '';
