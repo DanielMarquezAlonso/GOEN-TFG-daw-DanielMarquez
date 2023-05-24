@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { withRouter, useHistory, useNavigate } from 'react-router-dom';
-const LoginForm = () => {
-    const navigate = useNavigate();
+import { useDispatch } from 'react-redux';
 
+const LoginForm = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,20 +27,23 @@ const LoginForm = () => {
 
       if (response.ok) {
         const data = await response.json();
-        sessionStorage.setItem("isLoggedIn", true)
+        sessionStorage.setItem('isLoggedIn', true);
+        console.log(data.message);
         // Realizar acciones adicionales después del inicio de sesión exitoso
-        navigate("/home"); // Redirigir al componente "Home"
+        navigate('/home'); // Redirigir al componente "Home"
       } else {
         const errorData = await response.json();
-        console.error('Error:', errorData.message);
+        setError(errorData.message);
       }
     } catch (error) {
       console.error('Error:', error);
+      setError('Ocurrió un error al iniciar sesión.');
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      {error && <p>{error}</p>}
       <input
         type="text"
         placeholder="Nombre de usuario"

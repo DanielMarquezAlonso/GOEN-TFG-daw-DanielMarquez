@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 const RegisterForm = () => {
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,17 +27,20 @@ const RegisterForm = () => {
       if (response.ok) {
         const data = await response.json();
         console.log(data.message); // Registro exitoso
+        navigate('/login');
       } else {
         const errorData = await response.json();
-        console.error('Error:', errorData.message);
+        setError(errorData.message);
       }
     } catch (error) {
       console.error('Error:', error);
+      setError('Ocurrió un error al registrar.');
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      {error && <p>{error}</p>}
       <input
         type="text"
         placeholder="Nombre de usuario"

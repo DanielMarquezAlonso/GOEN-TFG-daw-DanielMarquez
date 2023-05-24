@@ -5,24 +5,11 @@ import Navigator from './storage/routes';
 
 function App() {
 
+  // sessionStorage.setItem("isLoggedIn", false)
 
   return (
     <div className="App">
       <Navigator/>
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload. hola
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
     </div>
   );
 }
