@@ -5,6 +5,7 @@ import Error from '../views/error/Error';
 import Estacion from '../views/estacion/Estacion';
 import LoginForm from '../views/login/Login';
 import RegisterForm from '../views/register/Register';
+import PuestoCarga from '../views/puestoCarga/PuestoCarga';
 
 
 // const isLoggedIn= sessionStorage.getItem("isLoggedIn");
@@ -26,6 +27,7 @@ return (
         <Route path="/home" element={<Home/>} />
         {/* <Route path="/estacion" element={isLoggedIn ? <Estacion/> : <Error/>} /> */}
         <Route path="/estacion" element={<Estacion/>} />
+        <Route path="/puestoCarga" element={<PuestoCarga/>} />
 
         <Route path="/login" element={<LoginForm/>} />
         <Route path="/register" element={<RegisterForm/>} />

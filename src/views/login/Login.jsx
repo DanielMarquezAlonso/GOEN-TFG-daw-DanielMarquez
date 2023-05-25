@@ -49,6 +49,7 @@ const LoginForm = () => {
               <h1>GOEN</h1>
           </nav>
         </header>
+        
         <div className="login-form-container">
       <h2 style={{ color: 'black' }}>Iniciar sesión</h2>
       <form className="login-form" onSubmit={handleSubmit}>
