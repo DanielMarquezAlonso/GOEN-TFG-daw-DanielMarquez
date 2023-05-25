@@ -1,6 +1,9 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
+
 from main.models import Patinete, Estacion, PuestoCarga, Registros, Profile
+from django.contrib.auth import get_user_model, authenticate
 
 class PatineteSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,3 +31,5 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ['url','usuario','dni','telefono']
+
+

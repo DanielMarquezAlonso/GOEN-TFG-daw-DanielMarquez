@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'main',
     'rest_framework',
     'corsheaders',
+    'user_api.apps.UserApiConfig',
 
 ]
 
@@ -156,5 +157,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
+    'http://127.0.0.1:3000',
     # Agrega aquí cualquier otro dominio que necesites permitir
 ]
+
+CORS_ALLOW_CREDENTIALS = True
+
+# AUTH_USER_MODEL = 'user_api.AppUser'
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.IsAuthenticated',
+#     ),
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework.authentication.SessionAuthentication',
+#     ),
+# }
