@@ -13,9 +13,9 @@ class PuestoCarga extends React.Component {
       this.state = {
         data: null,
         error: null,
-        nombre: "",
+        estacion: "",
         direccion: "",
-        estado: false,
+        disponible: false,
       };
 
 
@@ -27,9 +27,14 @@ class PuestoCarga extends React.Component {
     }
     
     retrieveContent = () => {
-        axios.get('http://127.0.0.1:8000/puestocarga/')
+      // const { nombreEstacion } = this.props.match.params;
+      // const estacionNombre = decodeURIComponent(nombreEstacion);
+      // axios.get('http://127.0.0.1:8000/estacion/${estacionNombre}/puestocarga/')
+
+        axios.get('http://127.0.0.1:8000/estacion/San%20Bernardo/puestocarga/')
       .then(response => {
         this.setState({ data: response.data });
+        console.log(response.data)
 
       })
       .catch(error => {
@@ -49,11 +54,10 @@ class PuestoCarga extends React.Component {
 
     render() {
       
-      const { data, error, estado } = this.state;
+      const { data, error, disponible } = this.state;
       const isLoggedIn = sessionStorage.getItem('isLoggedIn');
 
-
-      console.log("esto ES ESTACION", isLoggedIn)
+      console.log("esto es puesto de carga", isLoggedIn)
 
       if (!data || data.length === 0) {
         return (<div className='portada'>
@@ -75,7 +79,7 @@ class PuestoCarga extends React.Component {
       }
 
       let squareColor = '';
-      if (estado) {
+      if (disponible) {
         squareColor = 'green';
       } else {
         squareColor = 'red';
@@ -104,13 +108,13 @@ class PuestoCarga extends React.Component {
         {/* <p>{JSON.stringify(data)}</p>
         <p>Nombre de la primera estación: {data[0].nombre}</p> */}
         <div className='grid-container'>
-          {data.map((estacion, index) => (
+          {data.map((puestoCarga, index) => (
             <div
               key={index}
-              className={`grid-item ${estacion.estado ? 'green' : 'red'}`}
+              className={`grid-item ${puestoCarga.disponible ? 'green' : 'red'}`}
             >
-              <p>{estacion.nombre}</p>
-              <p>{estacion.direccion}</p>
+              <p>{puestoCarga.puesto}</p>
+              {/* <p>{puestoCarga.direccion}</p> */}
             </div>
           ))}
         </div>

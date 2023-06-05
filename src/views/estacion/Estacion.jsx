@@ -16,6 +16,7 @@ class Estacion extends React.Component {
         nombre: "",
         direccion: "",
         estado: false,
+        selectedEstacion: null,
       };
 
 
@@ -30,6 +31,8 @@ class Estacion extends React.Component {
         axios.get('http://127.0.0.1:8000/estacion/')
       .then(response => {
         this.setState({ data: response.data });
+        console.log(response.data)
+ 
 
       })
       .catch(error => {
@@ -46,6 +49,11 @@ class Estacion extends React.Component {
       // history.push('/home');
       
     };
+// AQUI 05/06
+    handleEstacionClick = (estacion) => {
+      const { nombre } = estacion;
+      // navigate('/estacion/${encodeURIComponent(nombre)}/puestoCarga');
+      };
 
     render() {
       
@@ -108,10 +116,11 @@ class Estacion extends React.Component {
             <div
               key={index}
               className={`grid-item ${estacion.estado ? 'green' : 'red'}`}
-            >
+              onClick={() => this.handleEstacionClick(estacion)}>
               <p>{estacion.nombre}</p>
               <p>{estacion.direccion}</p>
             </div>
+           
           ))}
         </div>
       </div>

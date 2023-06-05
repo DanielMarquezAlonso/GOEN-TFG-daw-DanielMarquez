@@ -27,7 +27,9 @@ return (
         <Route path="/home" element={<Home/>} />
         {/* <Route path="/estacion" element={isLoggedIn ? <Estacion/> : <Error/>} /> */}
         <Route path="/estacion" element={<Estacion/>} />
-        <Route path="/puestoCarga" element={<PuestoCarga/>} />
+        <Route path="/estacion/:nombreEstacion/puestoCarga" element={PuestoCarga} />
+
+ {/*      <Route path="/puestoCarga" element={<PuestoCarga/>} /> */}
 
         <Route path="/login" element={<LoginForm/>} />
         <Route path="/register" element={<RegisterForm/>} />
