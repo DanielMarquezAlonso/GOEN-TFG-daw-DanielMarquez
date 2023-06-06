@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link  } from 'react-router-dom';
 import { Navigate } from "react-router-dom";
-
+import { handleLazyError, withRouter } from '../../storage/Settings'
 import './estacion.scss'
+
+const Settings = lazy(() => handleLazyError(() => import('../../storage/Settings')));
+
+const SettingsWithRouter = withRouter(Settings)
 
 class Estacion extends React.Component {
     static identifier = 'estacion';
@@ -17,6 +21,7 @@ class Estacion extends React.Component {
         direccion: "",
         estado: false,
         selectedEstacion: null,
+        seleccionado: false,
       };
 
 
@@ -51,16 +56,44 @@ class Estacion extends React.Component {
     };
 // AQUI 05/06
     handleEstacionClick = (estacion) => {
-      const { nombre } = estacion;
+      if (!estacion.estado) {
+        return; // No se hace nada si el estado es falso
+      }else{
+        console.log(estacion.nombre)
+        // const { seleccion } = this.props;
+        let seleccion = estacion.nombre;
+        // seleccion = estacion.nombre;
+        // this.setState({nombre: seleccion})
+        // this.state.nombre = estacion.nombre;
+        console.log("nombre de la estacion")
+        console.log(this.state.nombre)
+        return <Navigate to={`/puestoCarga/${encodeURIComponent(estacion.nombre)}`} replace />;
+
+      }
+    
+    
+    
+
+      // this.props.onNombreEstacionChange(this.state.nombre);
       // navigate('/estacion/${encodeURIComponent(nombre)}/puestoCarga');
       };
 
     render() {
-      
-      const { data, error, estado } = this.state;
+      // if (this.state.nombre !== "") {
+      //   const { nombre } = this.state;
+      //   const nombreEstacion = nombre;
+      //   console.log(nombreEstacion)
+      //   // return <Navigate to={`/puestoCarga/${nombreEstacion}`} replace state={{ nombreEstacion: nombre }} />;
+
+      //   return <Navigate to={`/puestoCarga/${nombreEstacion}`} state={{ nombreEstacion }} replace />;
+      // }
+      const { data, error, estado, seleccionado } = this.state;
       const isLoggedIn = sessionStorage.getItem('isLoggedIn');
 
+      if(seleccionado){
+        <Navigate to="/puestoCarga" replace />
 
+      }
       console.log("esto ES ESTACION", isLoggedIn)
 
       if (!data || data.length === 0) {
@@ -89,7 +122,6 @@ class Estacion extends React.Component {
         squareColor = 'red';
       }
 
-      // console.log(data[2].nombre)
     
       return (
         <>
@@ -119,6 +151,7 @@ class Estacion extends React.Component {
               onClick={() => this.handleEstacionClick(estacion)}>
               <p>{estacion.nombre}</p>
               <p>{estacion.direccion}</p>
+              
             </div>
            
           ))}

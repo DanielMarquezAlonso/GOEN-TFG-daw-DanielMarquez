@@ -1,9 +1,120 @@
+// import React, { useEffect, useState } from 'react';
+// import { Link, Navigate, useLocation } from 'react-router-dom';
+// import axios from 'axios';
+
+// const PuestoCarga = () => {
+//   const [data, setData] = useState(null);
+//   const [error, setError] = useState(null);
+//   const [disponible, setDisponible] = useState(false);
+
+//   const location = useLocation();
+//   const nombreEstacion = location.state && location.state.nombreEstacion;
+
+//   useEffect(() => {
+//     retrieveContent();
+//   }, [nombreEstacion]);
+
+//   console.log(nombreEstacion)
+
+//   const retrieveContent = () => {
+//     axios
+//       .get(`http://127.0.0.1:8000/estacion/${nombreEstacion}/puestocarga/`)
+//       .then(response => {
+//         setData(response.data);
+//         console.log(response.data);
+//       })
+//       .catch(error => {
+//         setError(error.message);
+//       });
+//   };
+
+//   const handleLogoutClick = () => {
+//     sessionStorage.setItem('isLoggedIn', false);
+//     console.log('logout');
+//     // Rest of your logout logic
+//   };
+
+//   if (!data || data.length === 0) {
+//     return (
+//       <div className='portada'>
+//         <header>
+//           <nav>
+//             <ul>
+//               <h1>GOEN</h1>
+//               <li>
+//                 <Link to='/home'>Home</Link>
+//               </li>
+//               <li>
+//                 <Link to='/estacion'>estacion</Link>
+//               </li>
+             
+//               <li>
+//                 <button onClick={handleLogoutClick}>Logout</button>
+//               </li>
+//             </ul>
+//           </nav>
+//         </header>
+//         <div>Loading</div>
+//       </div>
+//     );
+//   }
+
+//   let squareColor = '';
+//   if (disponible) {
+//     squareColor = 'green';
+//   } else {
+//     squareColor = 'red';
+//   }
+
+//   return (
+//     <>
+//       {sessionStorage.getItem('isLoggedIn') && sessionStorage.getItem('isLoggedIn') !== 'false' ? (
+//         <div className='portada'>
+//           <header>
+//             <nav>
+//               <ul>
+//                 <h1>GOEN</h1>
+//                 <li>
+//                   <Link to='/home'>Home</Link>
+//                 </li>
+//                 <li>
+//                 <Link to='/estacion'>estacion</Link>
+//               </li>
+//                 <li>
+//                   <button onClick={handleLogoutClick}>Logout</button>
+//                 </li>
+//               </ul>
+//             </nav>
+//           </header>
+//           <h1>Puestos de Carga</h1>
+//           <div className='grid-container'>
+//             {data.map((puestoCarga, index) => (
+//               <div
+//                 key={index}
+//                 className={`grid-item ${puestoCarga.disponible ? 'green' : 'red'}`}
+//               >
+//                 <p>{puestoCarga.puesto}</p>
+//                 {/* <p>{puestoCarga.direccion}</p> */}
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+//       ) : (
+//         <Navigate to='/home' replace />
+//       )}
+//     </>
+//   );
+// };
+
+// export default PuestoCarga;
+
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Navigate } from "react-router-dom";
 
 import './puestoCarga.scss'
+import Estacion from '../estacion/Estacion';
 
 class PuestoCarga extends React.Component {
     static identifier = 'puestoCarga';
@@ -23,6 +134,8 @@ class PuestoCarga extends React.Component {
   
     componentDidMount() {
         this.retrieveContent();
+        const { nombreEstacion } = this.props;
+        console.log(nombreEstacion);         
 
     }
     
