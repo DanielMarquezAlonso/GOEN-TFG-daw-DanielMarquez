@@ -7,6 +7,7 @@ import LoginForm from '../views/login/Login';
 import RegisterForm from '../views/register/Register';
 import PuestoCarga from '../views/puestoCarga/PuestoCarga';
 import { handleLazyError, withRouter } from '../storage/Settings';
+import Profile from '../views/profile/Profile';
 
 const Settings = lazy(() => handleLazyError(() => import('../storage/Settings')));
 const SettingsWithRouter = withRouter(Settings)
@@ -27,7 +28,8 @@ return (
         <Route path="/estacion" element={<Estacion/>} />
         {/* <Route path="/estacion/:nombreEstacion/puestoCarga" element={PuestoCarga} /> */}
 
-      <Route path="/puestoCarga/:nombreEstacion" element={<PuestoCarga/>} />
+        <Route path="/puestoCarga/:nombreEstacion" element={<PuestoCarga/>} />
+        <Route path="/profile" element={<Profile/>} />
 
         <Route path="/login" element={<LoginForm/>} />
         <Route path="/register" element={<RegisterForm/>} />

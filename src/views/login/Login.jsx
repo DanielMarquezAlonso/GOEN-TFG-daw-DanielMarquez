@@ -10,7 +10,7 @@ const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
+     
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -27,8 +27,10 @@ const LoginForm = () => {
       });
 
       if (response.ok) {
+        console.log(username)
         const data = await response.json();
         sessionStorage.setItem('isLoggedIn', true);
+        sessionStorage.setItem('username', username);
         console.log(data.message);
         // Realizar acciones adicionales después del inicio de sesión exitoso
         navigate('/home'); // Redirigir al componente "Home"
@@ -41,6 +43,8 @@ const LoginForm = () => {
       setError('Ocurrió un error al iniciar sesión.');
     }
   };
+
+  
 
   return (
     <div className='portada'>

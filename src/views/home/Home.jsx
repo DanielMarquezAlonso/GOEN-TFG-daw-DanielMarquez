@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+
 import './home.scss';
 
 class Home extends Component {
@@ -9,7 +11,24 @@ class Home extends Component {
     super(props);
     this.state = {
       isLoggedIn: sessionStorage.getItem('isLoggedIn'),
+      usuario: "",
     };
+  }
+
+  componentDidMount() {
+        this.retrieveContent();
+
+    }
+
+  retrieveContent = () => {
+    axios.get('http://127.0.0.1:8000/profile/')
+  .then(response => {
+    console.log(response.data)
+    this.setState({ usuario: response.data });
+  })
+  .catch(error => {
+    console.error(error);
+  });
   }
 
   handleLogoutClick = () => {
@@ -20,7 +39,12 @@ class Home extends Component {
   };
 
   render() {
-    const { isLoggedIn } = this.state;
+    const { isLoggedIn, usuario } = this.state;
+    console.log(usuario)
+    let username = "";
+    if(usuario !== ""){
+      username = usuario[0].username
+    }
 
     return (
       <div className="portada">
@@ -32,7 +56,7 @@ class Home extends Component {
               {isLoggedIn && isLoggedIn !== 'false' ? (
                 <>
                 <li>
-                <Link to="/estacion">Estacion</Link>
+                <Link to="/estacion">Estaciones</Link>
               </li>
                 <li>
                   <button onClick={this.handleLogoutClick}>Logout</button>
@@ -54,7 +78,9 @@ class Home extends Component {
               )}
  
               {isLoggedIn && isLoggedIn !== 'false' ? (
-                <p>Bienvenido, Usuario</p>
+                <Link to="/profile"><p>Bienvenido, {username}</p></Link>
+                
+
               ) : (
                 <p>Inicia sesión para ver contenido personalizado</p>
               )}

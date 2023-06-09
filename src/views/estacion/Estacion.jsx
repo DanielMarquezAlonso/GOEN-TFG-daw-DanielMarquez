@@ -43,6 +43,8 @@ class Estacion extends React.Component {
       .catch(error => {
         this.setState({ error: error.message });
       });;
+
+      
     }
 
     handleLogoutClick = () => {
@@ -63,7 +65,7 @@ class Estacion extends React.Component {
         // const { seleccion } = this.props;
         let seleccion = estacion.nombre;
         // seleccion = estacion.nombre;
-        // this.setState({nombre: seleccion})
+        this.setState({nombre: seleccion})
         // this.state.nombre = estacion.nombre;
         console.log("nombre de la estacion")
         console.log(this.state.nombre)
@@ -71,29 +73,20 @@ class Estacion extends React.Component {
 
       }
     
-    
-    
-
-      // this.props.onNombreEstacionChange(this.state.nombre);
-      // navigate('/estacion/${encodeURIComponent(nombre)}/puestoCarga');
       };
 
     render() {
-      // if (this.state.nombre !== "") {
-      //   const { nombre } = this.state;
-      //   const nombreEstacion = nombre;
-      //   console.log(nombreEstacion)
-      //   // return <Navigate to={`/puestoCarga/${nombreEstacion}`} replace state={{ nombreEstacion: nombre }} />;
+      if (this.state.nombre !== "") {
+        const { nombre } = this.state;
+        const nombreEstacion = nombre;
+        console.log(nombreEstacion)
+        return <Navigate to={`/puestoCarga/${nombreEstacion}`} replace state={{ nombreEstacion: nombre }} />;
 
-      //   return <Navigate to={`/puestoCarga/${nombreEstacion}`} state={{ nombreEstacion }} replace />;
-      // }
+        // return <Navigate to={`/puestoCarga/${nombreEstacion}`} state={{ nombreEstacion }} replace />;
+      }
       const { data, error, estado, seleccionado } = this.state;
       const isLoggedIn = sessionStorage.getItem('isLoggedIn');
 
-      if(seleccionado){
-        <Navigate to="/puestoCarga" replace />
-
-      }
       console.log("esto ES ESTACION", isLoggedIn)
 
       if (!data || data.length === 0) {
