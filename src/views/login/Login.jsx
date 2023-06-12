@@ -29,8 +29,15 @@ const LoginForm = () => {
       if (response.ok) {
         console.log(username)
         const data = await response.json();
+        console.log(data)
+
+        const token = data.token;
+
+
         sessionStorage.setItem('isLoggedIn', true);
         sessionStorage.setItem('username', username);
+        sessionStorage.setItem('token', token);
+
         console.log(data.message);
         // Realizar acciones adicionales después del inicio de sesión exitoso
         navigate('/home'); // Redirigir al componente "Home"

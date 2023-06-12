@@ -6,7 +6,7 @@ const PuestoCarga = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [disponible, setDisponible] = useState(false);
-
+  const [isLoggedIn, setIsLoggedIn] = useState(sessionStorage.getItem('isLoggedIn'));
   const location = useLocation();
   const nombreEstacion = location.state && location.state.nombreEstacion;
 
@@ -31,7 +31,7 @@ const PuestoCarga = () => {
   const handleLogoutClick = () => {
     sessionStorage.setItem('isLoggedIn', false);
     console.log('logout');
-    // this.setState({ isLoggedIn: false });
+    setIsLoggedIn({ isLoggedIn: false });
 
     // Rest of your logout logic
   };
@@ -67,7 +67,7 @@ const PuestoCarga = () => {
   } else {
     squareColor = 'red';
   }
-  const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+  // const isLoggedIn = sessionStorage.getItem('isLoggedIn');
 
   return (
     

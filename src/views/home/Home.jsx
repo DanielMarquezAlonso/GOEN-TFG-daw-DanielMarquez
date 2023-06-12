@@ -21,15 +21,20 @@ class Home extends Component {
     }
 
   retrieveContent = () => {
-    axios.get('http://127.0.0.1:8000/profile/')
-  .then(response => {
-    console.log(response.data)
-    this.setState({ usuario: response.data });
-  })
-  .catch(error => {
-    console.error(error);
-  });
-  }
+    const token = sessionStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+  
+    axios.get('http://127.0.0.1:8000/profile/', { headers })
+      .then(response => {
+        console.log(response.data);
+        this.setState({ usuario: response.data });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    }
 
   handleLogoutClick = () => {
     sessionStorage.setItem('isLoggedIn', false);
@@ -43,7 +48,7 @@ class Home extends Component {
     console.log(usuario)
     let username = "";
     if(usuario !== ""){
-      username = usuario[0].username
+      username = sessionStorage.getItem('username')
     }
 
     return (
