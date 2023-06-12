@@ -2,29 +2,40 @@ from django.db import models
 from django.db.models import Max
 
 from django.contrib.auth.models import User
+from django.forms import ModelForm
 
 
 # Create your models here.
 
+
+
 class Patinete(models.Model):
-    identificador = models.IntegerField(primary_key=True, unique=True)
+    identificador = models.AutoField(primary_key=True, unique=True)
     vatios = models.DecimalField(max_digits=10, decimal_places=2)
-    estado = models.BooleanField()
-    # usuario = models.ForeignKey(User, on_delete=models.CASCADE)
-    precio_minuto = models.DecimalField(max_digits=10, decimal_places=2)
-    precio_desbloqueo = models.DecimalField(max_digits=10, decimal_places=2)
+    # precio_minuto = models.DecimalField(max_digits=10, decimal_places=2)
+    precio_desbloqueo = models.DecimalField(max_digits=10, decimal_places=2, default=1, editable=False)
+    propietario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='patinetes_propios', null=True, blank=True)
 
+    @property
+    def precio_minuto(self):
+        # Calcula el precio por minuto en función de los vatios
+        precio = self.vatios * 3  # Ejemplo de cálculo, ajusta la fórmula según tus necesidades
+        return precio
 
-    # def __str__(self):
-    #     return '{} - {} - {} - {} - {} - {}'.format(self.identificador, self.vatios, self.estado, self.precio_minuto, self.precio_minuto, self.precio_desbloqueo)
+    def __str__(self):
+        return '{} - {} - {} - {}'.format(
+            self.identificador, self.propietario, self.vatios, self.precio_minuto
+        )
 
 class Profile(models.Model):
-    # usuario = models.OneToOneField(User, on_delete=models.CASCADE)
-    dni = models.CharField(max_length=9)
-    telefono = models.IntegerField(null=True)
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE, null=True, default=None)
+    dni = models.CharField(max_length=9, null=True, blank=True)
+    telefono = models.CharField(max_length=20, default='', blank=True)
+    patinete_seleccionado = models.OneToOneField(Patinete, on_delete=models.SET_NULL, null=True, blank=True, related_name='usuario_propietario')
 
-    # def __str__(self):
-    #     return '{} - {} - {}'.format(self.usuario, self.dni, self.telefono)
+
+    def __str__(self):
+        return '{} - {} - {}'.format(self.usuario, self.dni, self.telefono)
 
 
 class Estacion(models.Model):
@@ -38,28 +49,14 @@ class Estacion(models.Model):
 
 class PuestoCarga(models.Model):
     numeroPuesto = models.IntegerField(primary_key=True)
+    puesto = models.IntegerField(default=1)
     disponible = models.BooleanField()
     estacion = models.ForeignKey(Estacion, on_delete=models.CASCADE)
 
+
     def __str__(self):
-        return '{} - {} - {}'.format(self.numeroPuesto, self.disponible, self.estacion)
+        return '{} - {} - {} - {}'.format(self.numeroPuesto, self.disponible, self.estacion, self.puesto)
 
-
-# class PuestoCarga(models.Model):
-#     numeroPuesto = models.DecimalField(primary_key=True, max_digits=10, decimal_places=2)
-#     disponible = models.BooleanField()
-#     estacion = models.ForeignKey(Estacion, on_delete=models.CASCADE, related_name='puestos_carga')
-#
-#     def __str__(self):
-#         return '{} - {} - {}'.format(self.numeroPuesto, self.disponible, self.estacion)
-
-# class PuestoCarga(models.Model):
-#     numeroPuesto = models.DecimalField(primary_key=True, max_digits=10, decimal_places=2)
-#     disponible = models.BooleanField()
-#     nombre = models.ForeignKey(Estacion, on_delete=models.CASCADE)
-#
-#     def __str__(self):
-#         return '{} - {} - {}'.format(self.numeroPuesto, self.disponible, self.nombre)
 
 class Registros(models.Model):
     # usuario = models.ForeignKey(User, on_delete=models.CASCADE)
