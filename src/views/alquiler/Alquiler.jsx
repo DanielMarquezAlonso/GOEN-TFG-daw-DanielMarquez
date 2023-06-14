@@ -11,6 +11,8 @@ const Alquiler = (props) => {
     const [isRunning, setIsRunning] = useState(false);
     const [selectedPatinete, setSelectedPatinete] = useState(null);
     const [precioAlquiler, setPrecioAlquiler] = useState(0);
+    const [disponible, setDisponible] = useState(false);
+
     // const numeroPuesto = props.numeroPuesto;
     const { numeroPuesto } = useParams();
 
@@ -22,19 +24,19 @@ const Alquiler = (props) => {
       retrievePuesto();
     }, [numeroPuesto]);
   
-    // useEffect(() => {
-    //   let timerId;
+    useEffect(() => {
+      let timerId;
   
-    //   if (isRunning) {
-    //     timerId = setInterval(() => {
-    //       setContador((prevContador) => prevContador + 1);
-    //     }, 1000);
-    //   }
+      if (isRunning) {
+        timerId = setInterval(() => {
+          setContador((prevContador) => prevContador + 1);
+        }, 1000);
+      }
   
-    //   return () => {
-    //     clearInterval(timerId);
-    //   };
-    // }, [isRunning]);
+      return () => {
+        clearInterval(timerId);
+      };
+    }, [isRunning]);
   
     const retrieveContent = async () => {
 
@@ -70,29 +72,20 @@ const Alquiler = (props) => {
       setIsRunning(true);
       setContador(0);
       setSelectedPatinete(selectedPatinete);
-        let disponibilidad = false;
-      // Aquí puedes realizar acciones adicionales al comenzar el alquiler, como cambiar el estado del puesto a no disponible en la base de datos
-      (async () => {
+            (async () => {
 
-      try {
-        // Realizar la solicitud POST para actualizar la disponibilidad del puesto en el backend
-        const response = await fetch(`http://127.0.0.1:8000/puestoCarga/${numeroPuesto}/`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Token ${sessionStorage.getItem('token')}`,
-          },
-          body: JSON.stringify({ disponible: disponibilidad }),
-        });
-        if (!response.ok) {
-          throw new Error('Error al actualizar la disponibilidad del puesto');
+        try {
+          const response = await axios.put(`http://127.0.0.1:8000/puestoCarga/${numeroPuesto}/`, {
+            disponible: false,
+          });
+      
+          console.log('La disponibilidad del puesto ha sido actualizada correctamente');
+        } catch (error) {
+          console.error('Error al actualizar la disponibilidad del puesto', error);
         }
-      } catch (error) {
-        console.error(error);
-      }
-      // Aquí puedes realizar acciones adicionales al comenzar el alquiler
-    
-})();
+        })();
+
+      // Aquí puedes realizar acciones adicionales al comenzar el alquiler, como cambiar el estado del puesto a no disponible en la base de datos
 
     };
   
@@ -117,30 +110,21 @@ const Alquiler = (props) => {
             const precio =
             (patineteSeleccionado.precio_minuto / 60) * contador +
             parseFloat(patineteSeleccionado.precio_desbloqueo);
-          setPrecioAlquiler(precio.toFixed(2));
+            setPrecioAlquiler(precio.toFixed(2));
           }
       // Aquí puedes realizar acciones adicionales al parar el alquiler, como guardar el tiempo transcurrido en la base de datos y redirigir al componente de pago
       (async () => {
 
-      try {
-        // Realizar la solicitud POST para actualizar la disponibilidad del puesto en el backend
-        const response = await fetch(`http://127.0.0.1:8000/puestoCarga/${numeroPuesto}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Token ${sessionStorage.getItem('token')}`,
-          },
-          body: JSON.stringify({ disponible: true }),
-        });
-        if (!response.ok) {
-          throw new Error('Error al actualizar la disponibilidad del puesto');
+        try {
+          const response = await axios.put(`http://127.0.0.1:8000/puestoCarga/${numeroPuesto}/`, {
+            disponible: true,
+          });
+      
+          console.log('La disponibilidad del puesto ha sido actualizada correctamente');
+        } catch (error) {
+          console.error('Error al actualizar la disponibilidad del puesto', error);
         }
-      } catch (error) {
-        console.error(error);
-      }
-      // Aquí puedes realizar acciones adicionales al comenzar el alquiler
-    
-})();
+        })();
 
     };
   
