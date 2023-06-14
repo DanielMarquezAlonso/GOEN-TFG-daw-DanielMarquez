@@ -9,7 +9,7 @@ const Alquiler = (props) => {
     const [contador, setContador] = useState(0);
     const [tiempoTranscurrido, setTiempoTranscurrido] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
-    const [selectedPatinete, setSelectedPatinete] = useState(null);
+    const [selectedPatinete, setSelectedPatinete] = useState('');
     const [precioAlquiler, setPrecioAlquiler] = useState(0);
     const [disponible, setDisponible] = useState(false);
 
@@ -146,7 +146,7 @@ const Alquiler = (props) => {
       // navigate('/home');
     };
   
-    if (patinetes === null) {
+    if (patinetes  === null) {
       return (
         <div className='portada'>
           <header>
@@ -162,6 +162,8 @@ const Alquiler = (props) => {
                 <li>
                   <button onClick={handleLogoutClick}>Logout</button>
                 </li>
+                <Link to="/profile"><p>Perfil</p></Link>
+
               </ul>
             </nav>
           </header>
@@ -187,10 +189,12 @@ const Alquiler = (props) => {
                   <li>
                     <button onClick={handleLogoutClick}>Logout</button>
                   </li>
+                  <Link to="/profile"><p>Perfil</p></Link>
+
                 </ul>
               </nav>
             </header>
-            <h2>Mis patinetes</h2>
+            <h2>Selecciona tu patinete</h2>
             <select value={selectedPatinete} onChange={(e) => setSelectedPatinete(e.target.value)}>
               <option value=''>Seleccionar patinete</option>
               {patinetes.map((patinete) => (
@@ -211,8 +215,8 @@ const Alquiler = (props) => {
             )}
             {tiempoTranscurrido > 0 && (
               <div>
-                <p>Tiempo alquilado anteriormente: {formatTime(tiempoTranscurrido)}</p>
-                <p>Precio del alquiler anterior: {precioAlquiler} euros</p>
+                <p>Tiempo alquilado: {formatTime(tiempoTranscurrido)}</p>
+                <p>Coste total: {precioAlquiler} euros</p>
               </div>
             )}
           </div>
