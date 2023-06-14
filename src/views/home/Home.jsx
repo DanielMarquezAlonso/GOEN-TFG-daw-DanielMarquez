@@ -38,7 +38,9 @@ class Home extends Component {
 
   handleLogoutClick = () => {
     sessionStorage.setItem('isLoggedIn', false);
-    // this.dispatch({ type: 'SET_LOGGED_IN_STATUS', payload: { isLoggedIn: false } });
+    sessionStorage.removeItem('isLoggedIn');
+    sessionStorage.removeItem('username');
+    sessionStorage.removeItem('token');
     console.log('logout');
     this.setState({ isLoggedIn: false });
   };
@@ -127,6 +129,7 @@ class Home extends Component {
 }
 
 export default Home;
+
 
 //Functional component
 

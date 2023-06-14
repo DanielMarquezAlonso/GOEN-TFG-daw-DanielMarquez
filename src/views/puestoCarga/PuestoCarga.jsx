@@ -7,14 +7,13 @@ const PuestoCarga = () => {
   const [error, setError] = useState(null);
   const [disponible, setDisponible] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(sessionStorage.getItem('isLoggedIn'));
+  const [redirectUrl, setRedirectUrl] = useState('');
   const location = useLocation();
   const nombreEstacion = location.state && location.state.nombreEstacion;
 
   useEffect(() => {
     retrieveContent();
   }, [nombreEstacion]);
-
-  console.log(nombreEstacion)
 
   const retrieveContent = () => {
     axios
@@ -31,9 +30,19 @@ const PuestoCarga = () => {
   const handleLogoutClick = () => {
     sessionStorage.setItem('isLoggedIn', false);
     console.log('logout');
-    setIsLoggedIn({ isLoggedIn: false });
+    setIsLoggedIn(false);
+    sessionStorage.removeItem('isLoggedIn');
+    sessionStorage.removeItem('username');
+    sessionStorage.removeItem('token');
+  };
 
-    // Rest of your logout logic
+  const handlePuestoCargaClick = (puestoCarga) => {
+    if (!puestoCarga.disponible) {
+      return; // No se hace nada si el estado es falso
+    } else {
+      console.log(puestoCarga.numeroPuesto);
+      setRedirectUrl(`/puestoCarga/alquiler/${encodeURIComponent(puestoCarga.numeroPuesto)}`);
+    }
   };
 
   if (!data || data.length === 0) {
@@ -49,7 +58,6 @@ const PuestoCarga = () => {
               <li>
                 <Link to='/estacion'>Estaciones</Link>
               </li>
-             
               <li>
                 <button onClick={handleLogoutClick}>Logout</button>
               </li>
@@ -61,50 +69,47 @@ const PuestoCarga = () => {
     );
   }
 
-  let squareColor = '';
-  if (disponible) {
-    squareColor = 'green';
-  } else {
-    squareColor = 'red';
-  }
-  // const isLoggedIn = sessionStorage.getItem('isLoggedIn');
-
   return (
-    
     <>
-      {sessionStorage.getItem('isLoggedIn') && sessionStorage.getItem('isLoggedIn') !== 'false' ? (
-        <div className='portada'>
-          <header>
-            <nav>
-              <ul>
-                <h1>GOEN</h1>
-                <li>
-                  <Link to='/home'>Home</Link>
-                </li>
-                <li>
-                <Link to='/estacion'>Estaciones</Link>
-              </li>
-                <li>
-                  <button onClick={handleLogoutClick}>Logout</button>
-                </li>
-              </ul>
-            </nav>
-          </header>
-          <h1>Puestos de Carga</h1>
-          <div className='grid-container'>
-            {data.map((puestoCarga, index) => (
-              <div
-                key={index}
-                className={`grid-item ${puestoCarga.disponible ? 'green' : 'red'}`}
-              >
-                <p>{puestoCarga.puesto}</p>
-                {/* <p>{puestoCarga.direccion}</p> */}
-              </div>
-            ))}
-          </div>
-        </div>
+      {redirectUrl ? (
+        <Navigate to={redirectUrl} replace />
       ) : (
-        <Navigate to='/home' replace />
+        sessionStorage.getItem('isLoggedIn') && sessionStorage.getItem('isLoggedIn') !== 'false' ? (
+          <div className='portada'>
+            <header>
+              <nav>
+                <ul>
+                  <h1>GOEN</h1>
+                  <li>
+                    <Link to='/home'>Home</Link>
+                  </li>
+                  <li>
+                    <Link to='/estacion'>Estaciones</Link>
+                  </li>
+                  <li>
+                    <button onClick={handleLogoutClick}>Logout</button>
+                  </li>
+                  <Link to="/profile"><p>Perfil</p></Link>
+                </ul>
+              </nav>
+            </header>
+            <h1>{nombreEstacion}</h1>
+            <h2>Puestos de Carga</h2>
+            <div className='grid-container'>
+              {data.map((puestoCarga, index) => (
+                <div
+                  key={index}
+                  className={`grid-item ${puestoCarga.disponible ? 'green' : 'red'}`}
+                  onClick={() => handlePuestoCargaClick(puestoCarga)}
+                >
+                  <p>{puestoCarga.puesto}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <Navigate to='/home' replace />
+        )
       )}
     </>
   );

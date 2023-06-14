@@ -49,11 +49,12 @@ class Estacion extends React.Component {
 
     handleLogoutClick = () => {
       sessionStorage.setItem('isLoggedIn', false);
-      // this.dispatch({ type: 'SET_LOGGED_IN_STATUS', payload: { isLoggedIn: false } });
       console.log('logout');
+      sessionStorage.removeItem('isLoggedIn');
+      sessionStorage.removeItem('username');
+      sessionStorage.removeItem('token');
       this.setState({ isLoggedIn: false });
-      // const history = useHistory();
-      // history.push('/home');
+      
       
     };
 // AQUI 05/06
@@ -130,6 +131,8 @@ class Estacion extends React.Component {
               <li>
                   <button onClick={this.handleLogoutClick}>Logout</button>
                 </li>
+                <Link to="/profile"><p>Perfil</p></Link>
+
             </ul>
           </nav>
         </header>
