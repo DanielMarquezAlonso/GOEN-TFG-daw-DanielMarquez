@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, Navigate, useLocation, useParams } from 'react-router-dom';
-
+import Payment from '../payment/Payment'
 import axios from 'axios';
 
 const Alquiler = (props) => {
@@ -12,6 +12,8 @@ const Alquiler = (props) => {
     const [selectedPatinete, setSelectedPatinete] = useState('');
     const [precioAlquiler, setPrecioAlquiler] = useState(0);
     const [disponible, setDisponible] = useState(false);
+    const [alquilerFinalizado, setAlquilerFinalizado] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(sessionStorage.getItem('isLoggedIn'));
 
     // const numeroPuesto = props.numeroPuesto;
     const { numeroPuesto } = useParams();
@@ -91,6 +93,7 @@ const Alquiler = (props) => {
   
     const handlePararClick = () => {
       setIsRunning(false);
+      setAlquilerFinalizado(true)
       setTiempoTranscurrido(contador);
       // Calcular el precio al finalizar el alquiler
       console.log(selectedPatinete, "patin selec")
@@ -140,6 +143,7 @@ const Alquiler = (props) => {
     };
   
     const handleLogoutClick = () => {
+      setIsLoggedIn(false);
       sessionStorage.setItem('isLoggedIn', false);
       sessionStorage.removeItem('username');
       sessionStorage.removeItem('token');
@@ -194,6 +198,8 @@ const Alquiler = (props) => {
                 </ul>
               </nav>
             </header>
+            {!alquilerFinalizado && (
+              <>
             <h2>Selecciona tu patinete</h2>
             <select value={selectedPatinete} onChange={(e) => setSelectedPatinete(e.target.value)}>
               <option value=''>Seleccionar patinete</option>
@@ -213,10 +219,15 @@ const Alquiler = (props) => {
                 Comenzar alquiler
               </button>
             )}
+            
+            </>
+            )}
             {tiempoTranscurrido > 0 && (
               <div>
                 <p>Tiempo alquilado: {formatTime(tiempoTranscurrido)}</p>
                 <p>Coste total: {precioAlquiler} euros</p>
+                <Payment price={precioAlquiler} /> {/* Agrega este componente */}
+
               </div>
             )}
           </div>

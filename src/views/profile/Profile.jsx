@@ -59,7 +59,7 @@ const Profile = () => {
           Authorization: `Token ${sessionStorage.getItem('token')}`,
         },
         body: JSON.stringify({
-          nombre,
+          // nombre,
           vatios,
         }),
       });
@@ -168,12 +168,12 @@ const Profile = () => {
 
             <h2>Registrar patinete</h2>
             <form onSubmit={createPatinete}>
-              <input
+              {/* <input
                 type='text'
                 placeholder='Nombre'
                 value={nombre}
                 onChange={(e) => setNombre(e.target.value)}
-              />
+              /> */}
               <input
                 type='number'
                 placeholder='Vatios'

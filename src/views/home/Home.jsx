@@ -12,29 +12,11 @@ class Home extends Component {
     this.state = {
       isLoggedIn: sessionStorage.getItem('isLoggedIn'),
       usuario: "",
+      
     };
   }
 
-  componentDidMount() {
-        this.retrieveContent();
-
-    }
-
-  retrieveContent = () => {
-    const token = sessionStorage.getItem('token');
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
   
-    axios.get('http://127.0.0.1:8000/profile/', { headers })
-      .then(response => {
-        console.log(response.data);
-        this.setState({ usuario: response.data });
-      })
-      .catch(error => {
-        console.error(error);
-      });
-    }
 
   handleLogoutClick = () => {
     sessionStorage.setItem('isLoggedIn', false);
@@ -49,7 +31,7 @@ class Home extends Component {
     const { isLoggedIn, usuario } = this.state;
     console.log(usuario)
     let username = "";
-    if(usuario !== ""){
+    if(usuario === ""){
       username = sessionStorage.getItem('username')
     }
 
