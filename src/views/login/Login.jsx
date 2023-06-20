@@ -38,9 +38,16 @@ const LoginForm = () => {
         sessionStorage.setItem('username', username);
         sessionStorage.setItem('token', token);
 
+        if (data.is_staff) {
+          sessionStorage.setItem('isStaff', true);
+          navigate('/admin');
+        }else{
+          sessionStorage.setItem('isStaff', false);
+          navigate('/home');
+        }
         console.log(data.message);
         // Realizar acciones adicionales después del inicio de sesión exitoso
-        navigate('/home'); // Redirigir al componente "Home"
+        // navigate('/home'); // Redirigir al componente "Home"
       } else {
         const errorData = await response.json();
         setError(errorData.message);

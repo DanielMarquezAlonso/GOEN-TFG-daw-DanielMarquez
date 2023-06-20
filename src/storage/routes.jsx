@@ -10,6 +10,7 @@ import { handleLazyError, withRouter } from '../storage/Settings';
 import Profile from '../views/profile/Profile';
 import Alquiler from '../views/alquiler/Alquiler';
 import Payment from '../views/payment/Payment';
+import Admin from '../views/admin/admin';
 
 const Settings = lazy(() => handleLazyError(() => import('../storage/Settings')));
 const SettingsWithRouter = withRouter(Settings)
@@ -37,6 +38,9 @@ return (
 
         <Route path="/login" element={<LoginForm/>} />
         <Route path="/register" element={<RegisterForm/>} />
+
+        <Route path="/admin" element={<Admin/>} />
+
 
 
         {/* Error Routing */}
