@@ -161,7 +161,7 @@ const Alquiler = (props) => {
                 <li>
                   <button onClick={handleLogoutClick}>Logout</button>
                 </li>
-                <Link to="/profile"><p>Perfil</p></Link>
+                <Link to="/profile">Perfil</Link>
 
               </ul>
             </nav>
@@ -188,7 +188,7 @@ const Alquiler = (props) => {
                   <li>
                     <button onClick={handleLogoutClick}>Logout</button>
                   </li>
-                  <Link to="/profile"><p>Perfil</p></Link>
+                  <Link to="/profile">Perfil</Link>
 
                 </ul>
               </nav>

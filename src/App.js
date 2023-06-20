@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './styles/App.scss';
 import Navigator from './storage/routes';
 

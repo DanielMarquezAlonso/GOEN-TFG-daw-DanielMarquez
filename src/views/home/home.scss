@@ -36,10 +36,24 @@ header {
     color: #ffffff;
     cursor: pointer;
   }
+  a {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: #000000;
+    border-radius: 0.5rem;
+    color: #ffffff;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .bienvenido{
+    margin-left: 10px;
+  }
 .portada {
+  padding-bottom: 100px;
     background-color: #000000;
     padding-top: 10%;
-    height: 150vh;
+    height: 100%;
     background-size: cover;
     // background-position: center;
     display: flex;

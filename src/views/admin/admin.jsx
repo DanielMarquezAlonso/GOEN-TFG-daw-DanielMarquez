@@ -372,7 +372,7 @@ const Admin = () => {
       </div>
     </div>
   ) : (
-    <Navigate to='/login' />
+    <Navigate to='/home' />
   );
 };
 

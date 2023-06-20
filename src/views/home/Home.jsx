@@ -64,8 +64,11 @@ class Home extends Component {
               )}
  
               {isLoggedIn && isLoggedIn !== 'false' ? (
-                <Link to="/profile"><p>Bienvenido, {username}</p></Link>
-                
+                <>
+                <Link to="/profile">Perfil</Link>
+                <br></br>
+                <p className='bienvenido'>Bienvenido, {username}</p>
+                </>
 
               ) : (
                 <p>Inicia sesión para ver contenido personalizado</p>

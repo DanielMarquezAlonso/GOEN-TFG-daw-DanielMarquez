@@ -124,7 +124,7 @@ class Estacion extends React.Component {
               <li>
                   <button onClick={this.handleLogoutClick}>Logout</button>
                 </li>
-                <Link to="/profile"><p>Perfil</p></Link>
+                <Link to="/profile">Perfil</Link>
 
             </ul>
           </nav>
