@@ -17,7 +17,8 @@ class PatineteSerializer(serializers.ModelSerializer):
         validated_data['propietario'] = user
         return super().create(validated_data)
 class RegistroSerializer(serializers.ModelSerializer):
-    usuario = serializers.PrimaryKeyRelatedField(read_only=True)
+    # username = serializers.CharField(source='usuario.username')
+    usuario = serializers.PrimaryKeyRelatedField(source='usuario.username', read_only=True)
 
     class Meta:
         model = Registros

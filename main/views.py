@@ -11,11 +11,7 @@ from rest_framework.decorators import action, permission_classes, authentication
 from main.models import Patinete, Estacion, PuestoCarga, Registros, Profile
 from main.serializers import PatineteSerializer, RegistroSerializer, ProfileSerializer, EstacionSerializer, PuestoCargaSerializer
 from rest_framework import viewsets, permissions, mixins, status, filters
-from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
-from django.db import transaction
-from django.db.models import Q, Count
-from django.utils import timezone
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from rest_framework.decorators import api_view
@@ -24,9 +20,9 @@ from django.http import JsonResponse
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
 
-
-
 # from .permissions import IsOwner
+
+
 # Create your views here.
 @authentication_classes([TokenAuthentication])
 class PatineteViewSet(viewsets.ModelViewSet):
@@ -66,18 +62,7 @@ class RegistroViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(usuario=self.request.user)
-# @authentication_classes([TokenAuthentication])
-# class PatineteViewSet(viewsets.ModelViewSet):
-#     queryset = Patinete.objects.all()
-#     serializer_class = PatineteSerializer
-#     # permission_classes = [IsAuthenticated]
-#
-#     def get_queryset(self):
-#         user = self.request.user
-#         return Patinete.objects.filter(propietario=user)
-#
-#     def perform_create(self, serializer):
-#         serializer.save(propietario=self.request.user)
+
 
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
@@ -95,9 +80,6 @@ class PuestoCargaViewSet(viewsets.ModelViewSet):
     serializer_class = PuestoCargaSerializer
     # permission_classes = [permissions.IsAuthenticated]
 
-
-
-    # permission_classes = [permissions.IsAuthenticated]
 
 class PuestoCargaListByEstacionViewSet(viewsets.ViewSet):
     def list(self, request, estacion_nombre=None):
@@ -117,7 +99,10 @@ def login_view(request):
     if user is not None:
         login(request, user)
         token, created = Token.objects.get_or_create(user=user)
-        return Response({'token': token.key, 'message': 'Inicio de sesión exitoso'})
+
+        is_staff = user.is_staff
+
+        return Response({'token': token.key, 'is_staff': is_staff, 'message': 'Inicio de sesión exitoso'})
     else:
         return Response({'message': 'Credenciales inválidas'}, status=400)
 # sin authtoken
@@ -148,29 +133,14 @@ def register_view(request):
         return Response({'message': 'Las contraseñas no coinciden'}, status=400)
 
     try:
-        # Crea un nuevo usuario
         user = User.objects.create_user(username=username, password=password, email=email)
 
-        # Crea un nuevo perfil asociado al usuario
         profile = Profile(usuario=user, telefono=telefono)
         profile.save()
 
-        # Serializa el perfil y devuelve la respuesta
         profile_serializer = ProfileSerializer(profile, context={'request': request})
         return Response({'message': 'Registro exitoso', 'profile': profile_serializer.data})
     except Exception as e:
         return Response({'message': str(e)}, status=400)
 
-# def get_profile(request, profile_id):
-#     try:
-#         profile = Profile.objects.get(id=profile_id)
-#         data = {
-#             'username': profile.usuario.username,
-#             'email': profile.usuario.email,
-#             'dni': profile.dni,
-#             'telefono': profile.telefono
-#         }
-#         return JsonResponse(data)
-#     except Profile.DoesNotExist:
-#         return JsonResponse({'error': 'Profile not found'}, status=404)
 
