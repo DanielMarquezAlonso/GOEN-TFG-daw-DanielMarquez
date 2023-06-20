@@ -9,12 +9,15 @@ const Profile = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [patinetes, setPatinetes] = useState([]);
+  const [registros, setRegistros] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(sessionStorage.getItem('isLoggedIn'));
   const [nombre, setNombre] = useState('');
   const [vatios, setVatios] = useState('');
 
   useEffect(() => {
     retrieveContent();
     fetchPatinetes();
+    fetchRegistros();
   }, []);
 
   const retrieveContent = () => {
@@ -42,6 +45,24 @@ const Profile = () => {
         setPatinetes(data);
       } else {
         throw new Error('Error al obtener los patinetes');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchRegistros = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/registro/', {
+        headers: {
+          Authorization: `Token ${sessionStorage.getItem('token')}`,
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setRegistros(data);
+      } else {
+        throw new Error('Error al obtener los registros');
       }
     } catch (error) {
       console.error(error);
@@ -102,7 +123,8 @@ const Profile = () => {
     sessionStorage.removeItem('isLoggedIn');
     sessionStorage.removeItem('username');
     sessionStorage.removeItem('token');
-    // navigate('/home');
+    setIsLoggedIn(false);
+
   };
 
   if (patinetes && data === null) {
@@ -131,7 +153,7 @@ const Profile = () => {
 
   return (
     <>
-      {sessionStorage.getItem('isLoggedIn') && sessionStorage.getItem('isLoggedIn') !== 'false' ? (
+       {isLoggedIn && isLoggedIn !== 'false' ? (
         <div className='portada'>
           <header>
             <nav>
@@ -183,6 +205,20 @@ const Profile = () => {
               <button type='submit'>Crear</button>
             </form>
           </div>
+          <h2>Historial</h2>
+            
+              {registros.map((registros) => (
+                <> 
+                <div className='historial'>  
+                  <h2>Datos del Pago:</h2>
+                  <p><span className="label">ID de Compra:</span> {registros.id_pago}</p>
+                  <p><span className="label">Fecha:</span> {registros.fecha_alquiler}</p>
+                  <p><span className="label">Importe:</span> {registros.precio_total}€</p>
+                  <p><span className="label">Estado:</span> {registros.estado_pago}</p>
+                </div> 
+              </>
+              ))}
+            
         </div>
       ) : (
         <Navigate to='/home' replace />

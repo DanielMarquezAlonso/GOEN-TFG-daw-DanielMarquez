@@ -109,11 +109,14 @@ const Alquiler = (props) => {
             }           
         }
         console.log("contador", contador)
+        console.log("es precio es", precioAlquiler)
+
         if (patineteSeleccionado) {
             const precio =
             (patineteSeleccionado.precio_minuto / 60) * contador +
             parseFloat(patineteSeleccionado.precio_desbloqueo);
             setPrecioAlquiler(precio.toFixed(2));
+            console.log("es precio es", precioAlquiler)
           }
       // Aquí puedes realizar acciones adicionales al parar el alquiler, como guardar el tiempo transcurrido en la base de datos y redirigir al componente de pago
       (async () => {
@@ -143,10 +146,11 @@ const Alquiler = (props) => {
     };
   
     const handleLogoutClick = () => {
-      setIsLoggedIn(false);
       sessionStorage.setItem('isLoggedIn', false);
       sessionStorage.removeItem('username');
       sessionStorage.removeItem('token');
+      setIsLoggedIn(false);
+
       // navigate('/home');
     };
   
@@ -178,7 +182,7 @@ const Alquiler = (props) => {
   
     return (
       <>
-        {sessionStorage.getItem('isLoggedIn') && sessionStorage.getItem('isLoggedIn') !== 'false' ? (
+       {isLoggedIn && isLoggedIn !== 'false' ? (
           <div className='portada'>
             <header>
               <nav>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 
 import './home.scss';
 
@@ -29,7 +28,6 @@ class Home extends Component {
 
   render() {
     const { isLoggedIn, usuario } = this.state;
-    console.log(usuario)
     let username = "";
     if(usuario === ""){
       username = sessionStorage.getItem('username')
@@ -76,10 +74,16 @@ class Home extends Component {
             </ul>
           </nav>
         </header>
-        <div className="descripcion">
-             <p>¡Únete a nuestra comunidad para cargar tu patinete!</p>
-            <button>Únete</button>
-        </div>
+          {isLoggedIn  === 'true' ? (
+                  <h1>Bienvenido a GOEN</h1>
+          ) : (
+                  <div className="descripcion">
+                  <p>¡Únete a nuestra comunidad para cargar tu patinete!</p>
+                  <Link to="/register">
+                    <button>Unete</button>
+                  </Link></div>
+          )}
+
         <br/><br/><br/><br/><br/><br/><br/><br/><br/>
         <div className='contenido'><p>Bienvenido a nuestra página web de carga de patinetes eléctricos,
            donde hacemos que la carga de tus patinetes sea más fácil y conveniente que nunca. Nos 
@@ -104,7 +108,11 @@ class Home extends Component {
           sea más fácil y conveniente que nunca. ¡Prueba nuestro servicio hoy mismo y experimenta la comodidad
           de tener tu patinete siempre listo para rodar!</p>
           </div>
-          <div className='pie'><h4>Daniel Marquez Alonso</h4></div>
+          <div className='pie'>
+            <h4>Daniel Marquez Alonso</h4>
+            <p>Todos los derechos reservados &copy; 2023</p>
+          </div>
+            
       </div>
     );
   }

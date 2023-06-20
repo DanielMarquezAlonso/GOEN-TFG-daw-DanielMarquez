@@ -1,5 +1,4 @@
 .profile-container {
-    margin: 20px;
     padding: 20px;
     background-color: #1c096e;
     border-radius: 5px;
@@ -44,4 +43,14 @@
   
   .profile-container button:hover {
     background-color: #0056b3;
+  }
+
+  .historial{
+    margin: 20px;
+
+    border: 1px solid #ccc;
+    text-align: left;
+    padding: 50px;
+    padding-left: 100px;
+    padding-right: 100px;
   }
