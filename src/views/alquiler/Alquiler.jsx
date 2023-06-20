@@ -14,8 +14,6 @@ const Alquiler = (props) => {
     const [disponible, setDisponible] = useState(false);
     const [alquilerFinalizado, setAlquilerFinalizado] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(sessionStorage.getItem('isLoggedIn'));
-
-    // const numeroPuesto = props.numeroPuesto;
     const { numeroPuesto } = useParams();
 
 
@@ -42,7 +40,7 @@ const Alquiler = (props) => {
   
     const retrieveContent = async () => {
 
-        console.log("esto es el numero de puesto", numeroPuesto)
+        // console.log("esto es el numero de puesto", numeroPuesto)
 
       try {
         const response = await fetch('http://127.0.0.1:8000/patinetes/', {
@@ -62,12 +60,9 @@ const Alquiler = (props) => {
     };
   
     const retrievePuesto = () => {
-        console.log("esto es el numero de puesto", numeroPuesto)
+        // console.log("esto es el numero de puesto", numeroPuesto)
 
-      // Lógica para obtener el puesto de carga asignado al usuario
-      // Puedes hacer una petición a tu backend o asignar el puesto desde otro componente
-      // const puestoAsignado = // Obtener el puesto de carga asignado al usuario
-      // setPuesto(puestoAsignado);
+  
     };
   
     const handleComenzarClick = () => {
@@ -87,7 +82,6 @@ const Alquiler = (props) => {
         }
         })();
 
-      // Aquí puedes realizar acciones adicionales al comenzar el alquiler, como cambiar el estado del puesto a no disponible en la base de datos
 
     };
   
@@ -96,29 +90,28 @@ const Alquiler = (props) => {
       setAlquilerFinalizado(true)
       setTiempoTranscurrido(contador);
       // Calcular el precio al finalizar el alquiler
-      console.log(selectedPatinete, "patin selec")
-      console.log(patinetes, "patin ideb")
+      // console.log(selectedPatinete, "patin selec")
+      // console.log(patinetes, "patin ideb")
       let patineteSeleccionado = "";
         for (let i = 0; i < patinetes.length; i++) {
             let comparar = patinetes[i].identificador
             if(comparar == selectedPatinete) {
-                console.log("entra")
-                console.log(patinetes[i])
+                // console.log("entra")
+                // console.log(patinetes[i])
 
                 patineteSeleccionado = patinetes[i];
             }           
         }
-        console.log("contador", contador)
-        console.log("es precio es", precioAlquiler)
+        // console.log("contador", contador)
+        // console.log("es precio es", precioAlquiler)
 
         if (patineteSeleccionado) {
             const precio =
             (patineteSeleccionado.precio_minuto / 60) * contador +
             parseFloat(patineteSeleccionado.precio_desbloqueo);
             setPrecioAlquiler(precio.toFixed(2));
-            console.log("es precio es", precioAlquiler)
+            // console.log("es precio es", precioAlquiler)
           }
-      // Aquí puedes realizar acciones adicionales al parar el alquiler, como guardar el tiempo transcurrido en la base de datos y redirigir al componente de pago
       (async () => {
 
         try {
@@ -135,8 +128,6 @@ const Alquiler = (props) => {
     };
   
     const formatTime = (seconds) => {
-      // Lógica para formatear el tiempo transcurrido a un formato deseado (HH:MM:SS)
-      // Puedes adaptar esta función según tus necesidades
       const hours = Math.floor(seconds / 3600);
       const minutes = Math.floor((seconds % 3600) / 60);
       const formattedHours = hours < 10 ? `0${hours}` : hours;
@@ -202,8 +193,11 @@ const Alquiler = (props) => {
                 </ul>
               </nav>
             </header>
+            <div className='profile-container'>
+
             {!alquilerFinalizado && (
               <>
+              
             <h2>Selecciona tu patinete</h2>
             <select value={selectedPatinete} onChange={(e) => setSelectedPatinete(e.target.value)}>
               <option value=''>Seleccionar patinete</option>
@@ -230,10 +224,11 @@ const Alquiler = (props) => {
               <div>
                 <p>Tiempo alquilado: {formatTime(tiempoTranscurrido)}</p>
                 <p>Coste total: {precioAlquiler} euros</p>
-                <Payment price={precioAlquiler} /> {/* Agrega este componente */}
+                <Payment price={precioAlquiler} />
 
               </div>
             )}
+          </div>
           </div>
         ) : (
           <Navigate to='/home' replace />

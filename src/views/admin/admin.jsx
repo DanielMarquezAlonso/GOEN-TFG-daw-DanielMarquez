@@ -13,17 +13,15 @@ const Admin = () => {
     nombre: '',
     direccion: '',
     estado: false,
-    // Add more fields based on your station model
   });
   const [nuevoPuesto, setNuevoPuesto] = useState({
     numeroPuesto: '',
     estacion: '',
     puesto: '',
     disponible: true,
-    // Add more fields based on your charging post model
   });
   const [error, setError] = useState('');
-  const [activeTab, setActiveTab] = useState('estaciones'); // 'estaciones', 'historial', or 'puestosCarga'
+  const [activeTab, setActiveTab] = useState('estaciones'); 
   const [data, setData] = useState([]);
   const [nombreEstacion, setNombreEstacion] = useState('');
 
@@ -303,6 +301,7 @@ const Admin = () => {
                 <h2>Datos del Pago:</h2>
                 <p>
                   <span className='label'>Usuario:</span> {registro.usuario}
+
                 </p>
                 <p>
                   <span className='label'>ID de Compra:</span> {registro.id_pago}

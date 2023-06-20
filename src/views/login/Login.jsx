@@ -27,9 +27,9 @@ const LoginForm = () => {
       });
 
       if (response.ok) {
-        console.log(username)
+        // console.log(username)
         const data = await response.json();
-        console.log(data)
+        // console.log(data)
 
         const token = data.token;
 
@@ -46,8 +46,7 @@ const LoginForm = () => {
           navigate('/home');
         }
         console.log(data.message);
-        // Realizar acciones adicionales después del inicio de sesión exitoso
-        // navigate('/home'); // Redirigir al componente "Home"
+        // navigate('/home'); 
       } else {
         const errorData = await response.json();
         setError(errorData.message);

@@ -22,7 +22,6 @@ class Home extends Component {
     sessionStorage.removeItem('isLoggedIn');
     sessionStorage.removeItem('username');
     sessionStorage.removeItem('token');
-    console.log('logout');
     this.setState({ isLoggedIn: false });
   };
 

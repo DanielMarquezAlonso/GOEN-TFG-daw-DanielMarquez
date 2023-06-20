@@ -90,7 +90,7 @@ const Profile = () => {
         setNombre('');
         setVatios('');
         setPatinetes([...patinetes, data]);
-        console.log('Patinete creado con éxito');
+        // console.log('Patinete creado con éxito');
       } else {
         throw new Error('Error al crear el patinete');
       }
@@ -110,7 +110,7 @@ const Profile = () => {
 
       if (response.ok) {
         setPatinetes(patinetes.filter((patinete) => patinete.identificador !== identificador));
-        console.log('Patinete eliminado con éxito');
+        // console.log('Patinete eliminado con éxito');
       } else {
         throw new Error('Error al eliminar el patinete');
       }
@@ -190,12 +190,7 @@ const Profile = () => {
 
             <h2>Registrar patinete</h2>
             <form onSubmit={createPatinete}>
-              {/* <input
-                type='text'
-                placeholder='Nombre'
-                value={nombre}
-                onChange={(e) => setNombre(e.target.value)}
-              /> */}
+            
               <input
                 type='number'
                 placeholder='Vatios'

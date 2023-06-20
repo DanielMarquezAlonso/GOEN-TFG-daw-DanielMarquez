@@ -12,7 +12,7 @@ const Payment = (props) => {
 
 
   const { price } = props;
-  // Configura las opciones de PayPal
+  // Configurar las opciones de PayPal
   const initialOptions = {
     'client-id': 'Acmf57LGRJSzEePGWNTxE_BewwvQr8pxkAzQhhawTDyu3VshegqJc9p9RdeqwWMkYvLUQDSxNb5KLcl1',
     currency: 'EUR',
@@ -29,8 +29,6 @@ const Payment = (props) => {
           Authorization: `Token ${sessionStorage.getItem('token')}`,
         },
         body: JSON.stringify({
-          // Agrega los datos que deseas enviar en la solicitud POST
-          // Ejemplo:
           id_pago: details.id,
           fecha_alquiler: details.create_time,
           precio_total: details.purchase_units[0].amount.value,
@@ -42,7 +40,8 @@ const Payment = (props) => {
         const data = await response.json();
         console.log('Pago exitoso:', details, data);
 
-        setDetails(JSON.stringify(details));
+        // setDetails(JSON.stringify(details));
+        setDetails(details);
         setData(JSON.stringify(data));
         setDataRaw(details);
 
@@ -55,10 +54,7 @@ const Payment = (props) => {
     }
   };
 
-  // Maneja el evento de pago exitoso
   const handlePaymentSuccess = (details, data) => {
-    // Aquí puedes realizar acciones adicionales después de un pago exitoso
-    // console.log('Pago exitoso:', details, data);
     
     // setDetails(JSON.stringify(details))
     // setData(JSON.stringify(data))
@@ -69,9 +65,7 @@ const Payment = (props) => {
 
   };
 
-  // Maneja el evento de error de pago
   const handlePaymentError = (error) => {
-    // Aquí puedes manejar el error de pago
     console.error('Error de pago:', error);
   };
 
@@ -98,19 +92,17 @@ const Payment = (props) => {
     <PayPalScriptProvider options={initialOptions}>
       <PayPalButtons
         createOrder={(data, actions) => {
-          // Aquí puedes definir la lógica para crear una orden de pago
           return actions.order.create({
             purchase_units: [
               {
                 amount: {
-                  value: price, // El valor del pago
+                  value: price, 
                 },
               },
             ],
           });
         }}
         onApprove={(data, actions) => {
-          // Aquí puedes definir la lógica después de la aprobación del pago
           return actions.order.capture().then(function (details) {
             handlePaymentSuccess(details, data);
           });

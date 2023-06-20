@@ -1,0 +1,55 @@
+.portada {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  li {
+    margin-right: 10px;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #000;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .content {
+    margin-top: 20px;
+  }
+  
+  .select-patinete {
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .running-alquiler {
+    margin-top: 20px;
+  }
+  
+  .parar-alquiler {
+    background-color: #ff0000;
+    color: #fff;
+  }
+  
+  .alquiler-finalizado {
+    margin-top: 20px;
+  }

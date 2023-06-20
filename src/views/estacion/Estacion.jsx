@@ -36,7 +36,7 @@ class Estacion extends React.Component {
         axios.get('http://127.0.0.1:8000/estacion/')
       .then(response => {
         this.setState({ data: response.data });
-        console.log(response.data)
+        // console.log(response.data)
  
 
       })
@@ -49,7 +49,6 @@ class Estacion extends React.Component {
 
     handleLogoutClick = () => {
       sessionStorage.setItem('isLoggedIn', false);
-      console.log('logout');
       sessionStorage.removeItem('isLoggedIn');
       sessionStorage.removeItem('username');
       sessionStorage.removeItem('token');
@@ -57,19 +56,15 @@ class Estacion extends React.Component {
       
       
     };
-// AQUI 05/06
     handleEstacionClick = (estacion) => {
       if (!estacion.estado) {
-        return; // No se hace nada si el estado es falso
+        return; 
       }else{
-        console.log(estacion.nombre)
-        // const { seleccion } = this.props;
+        // console.log(estacion.nombre)
         let seleccion = estacion.nombre;
-        // seleccion = estacion.nombre;
         this.setState({nombre: seleccion})
-        // this.state.nombre = estacion.nombre;
-        console.log("nombre de la estacion")
-        console.log(this.state.nombre)
+        // console.log("nombre de la estacion")
+        // console.log(this.state.nombre)
         return <Navigate to={`/puestoCarga/${encodeURIComponent(estacion.nombre)}`} replace />;
 
       }
@@ -80,15 +75,13 @@ class Estacion extends React.Component {
       if (this.state.nombre !== "") {
         const { nombre } = this.state;
         const nombreEstacion = nombre;
-        console.log(nombreEstacion)
+        // console.log(nombreEstacion)
         return <Navigate to={`/puestoCarga/${nombreEstacion}`} replace state={{ nombreEstacion: nombre }} />;
 
-        // return <Navigate to={`/puestoCarga/${nombreEstacion}`} state={{ nombreEstacion }} replace />;
       }
       const { data, error, estado, seleccionado } = this.state;
       const isLoggedIn = sessionStorage.getItem('isLoggedIn');
 
-      console.log("esto ES ESTACION", isLoggedIn)
 
       if (!data || data.length === 0) {
         return (<div className='portada'>
@@ -137,8 +130,7 @@ class Estacion extends React.Component {
           </nav>
         </header>
         <h1>Estaciones</h1>
-        {/* <p>{JSON.stringify(data)}</p>
-        <p>Nombre de la primera estación: {data[0].nombre}</p> */}
+ 
         <div className='grid-container'>
           {data.map((estacion, index) => (
             <div
