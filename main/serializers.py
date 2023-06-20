@@ -16,6 +16,18 @@ class PatineteSerializer(serializers.ModelSerializer):
         user = self.context['request'].user
         validated_data['propietario'] = user
         return super().create(validated_data)
+class RegistroSerializer(serializers.ModelSerializer):
+    usuario = serializers.PrimaryKeyRelatedField(read_only=True)
+
+    class Meta:
+        model = Registros
+        fields = ['url', 'id_pago', 'fecha_alquiler', 'precio_total', 'estado_pago', 'usuario']
+
+    def create(self, validated_data):
+        user = self.context['request'].user
+        validated_data['usuario'] = user
+        return super().create(validated_data)
+
 class EstacionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Estacion
@@ -28,10 +40,6 @@ class PuestoCargaSerializer(serializers.ModelSerializer):
         fields = ['url','numeroPuesto', 'puesto', 'disponible','estacion']
 
 
-class RegistroSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Registros
-        fields = ['url','usuario','nombre','numeroPuesto', 'identificador','fecha_desbloqueo', 'fecha_entrega', 'coste_final']
 
 class ProfileSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='usuario.username')

@@ -21,10 +21,12 @@ urlpatterns = [
     #ruta para establecer idioma
     # path('i18n/', include('django.conf.urls.i18n')),
     # path('', TemplateView.as_view(template_name='main/index.html'), name='welcome'),
-    path('api/', include(router.urls)),
+    # path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/login/', login_view, name='login'),
     path('api/register/', register_view, name='register'),
+    # paypal
+
 
     # path('api/', include('user_api.urls')),
 

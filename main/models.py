@@ -1,3 +1,5 @@
+from _decimal import Decimal
+
 from django.db import models
 from django.db.models import Max
 
@@ -19,8 +21,8 @@ class Patinete(models.Model):
     @property
     def precio_minuto(self):
         # Calcula el precio por minuto en función de los vatios
-        precio = self.vatios * 3  # Ejemplo de cálculo, ajusta la fórmula según tus necesidades
-        return precio
+        precio = Decimal(self.vatios) * Decimal('0.033')  # Adjust the formula according to your needs
+        return precio.quantize(Decimal('0.00'))
 
     def __str__(self):
         return '{} - {} - {} - {}'.format(
@@ -48,10 +50,10 @@ class Estacion(models.Model):
 
 
 class PuestoCarga(models.Model):
-    numeroPuesto = models.IntegerField(primary_key=True)
+    numeroPuesto = models.IntegerField(primary_key=True, blank=True)
     puesto = models.IntegerField(default=1)
     disponible = models.BooleanField()
-    estacion = models.ForeignKey(Estacion, on_delete=models.CASCADE)
+    estacion = models.ForeignKey(Estacion, on_delete=models.CASCADE, blank=True)
 
 
     def __str__(self):
@@ -59,13 +61,23 @@ class PuestoCarga(models.Model):
 
 
 class Registros(models.Model):
-    # usuario = models.ForeignKey(User, on_delete=models.CASCADE)
-    nombre = models.ForeignKey(Estacion, on_delete=models.CASCADE)
-    numeroPuesto = models.ForeignKey(PuestoCarga, on_delete=models.CASCADE)
-    identificador = models.ForeignKey(Patinete, on_delete=models.CASCADE)
-    fecha_desbloqueo = models.DateTimeField()
-    fecha_entrega = models.DateTimeField(null=True)
-    coste_final = models.FloatField(null=True)
+    id_pago = models.CharField(max_length=100, null=True)
+    fecha_alquiler = models.CharField(max_length=100, null=True)
+    precio_total = models.CharField(max_length=100, null=True)
+    estado_pago = models.CharField(max_length=100, null=True)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='registros', null=True, blank=True)
+
 
     # def __str__(self):
     #     return '{} - {} - {} - {} - {} - {} - {}'.format(self.usuario, self.nombre, self.numeroPuesto, self.identificador, self.fecha_desbloqueo, self.fecha_entrega, self.coste_final)
+# class Registros(models.Model):
+#     # usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+#     nombre = models.ForeignKey(Estacion, on_delete=models.CASCADE)
+#     numeroPuesto = models.ForeignKey(PuestoCarga, on_delete=models.CASCADE)
+#     identificador = models.ForeignKey(Patinete, on_delete=models.CASCADE)
+#     fecha_desbloqueo = models.DateTimeField()
+#     fecha_entrega = models.DateTimeField(null=True)
+#     coste_final = models.FloatField(null=True)
+
+#     # def __str__(self):
+#     #     return '{} - {} - {} - {} - {} - {} - {}'.format(self.usuario, self.nombre, self.numeroPuesto, self.identificador, self.fecha_desbloqueo, self.fecha_entrega, self.coste_final)

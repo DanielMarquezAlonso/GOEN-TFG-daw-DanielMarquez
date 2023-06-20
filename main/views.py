@@ -1,9 +1,11 @@
+from django.conf import settings
 from django.shortcuts import render
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
+from django.views import View
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.generics import get_object_or_404
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.decorators import action, permission_classes, authentication_classes
 from main.models import Patinete, Estacion, PuestoCarga, Registros, Profile
@@ -23,29 +25,60 @@ from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
 
 
+
 # from .permissions import IsOwner
 # Create your views here.
-
-
+@authentication_classes([TokenAuthentication])
 class PatineteViewSet(viewsets.ModelViewSet):
     queryset = Patinete.objects.all()
     serializer_class = PatineteSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+
+    def get_permissions(self):
+        if self.request.user.is_staff:
+            return [IsAdminUser()]
+        return [IsAuthenticated()]
 
     def get_queryset(self):
         user = self.request.user
+        if user.is_staff:
+            return Patinete.objects.all()
         return Patinete.objects.filter(propietario=user)
 
     def perform_create(self, serializer):
         serializer.save(propietario=self.request.user)
-    # permission_classes = [IsAuthenticated]
 
-    # def perform_create(self, serializer):
-    #     serializer.save(propietario=self.request.user)
-    #
-    # def get_queryset(self):
-    #     user = self.request.user
-    #     return Patinete.objects.filter(propietario=user)
+@authentication_classes([TokenAuthentication])
+class RegistroViewSet(viewsets.ModelViewSet):
+    queryset = Registros.objects.all()
+    serializer_class = RegistroSerializer
+
+    def get_permissions(self):
+        if self.request.user.is_staff:
+            return [IsAdminUser()]
+        return [IsAuthenticated()]
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_staff:
+            return Registros.objects.all()
+        return Registros.objects.filter(usuario=user)
+
+    def perform_create(self, serializer):
+        serializer.save(usuario=self.request.user)
+# @authentication_classes([TokenAuthentication])
+# class PatineteViewSet(viewsets.ModelViewSet):
+#     queryset = Patinete.objects.all()
+#     serializer_class = PatineteSerializer
+#     # permission_classes = [IsAuthenticated]
+#
+#     def get_queryset(self):
+#         user = self.request.user
+#         return Patinete.objects.filter(propietario=user)
+#
+#     def perform_create(self, serializer):
+#         serializer.save(propietario=self.request.user)
+
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
@@ -63,9 +96,7 @@ class PuestoCargaViewSet(viewsets.ModelViewSet):
     # permission_classes = [permissions.IsAuthenticated]
 
 
-class RegistroViewSet(viewsets.ModelViewSet):
-    queryset = Registros.objects.all()
-    serializer_class = RegistroSerializer
+
     # permission_classes = [permissions.IsAuthenticated]
 
 class PuestoCargaListByEstacionViewSet(viewsets.ViewSet):
@@ -142,3 +173,4 @@ def register_view(request):
 #         return JsonResponse(data)
 #     except Profile.DoesNotExist:
 #         return JsonResponse({'error': 'Profile not found'}, status=404)
+
