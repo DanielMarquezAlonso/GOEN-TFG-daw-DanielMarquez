@@ -1,0 +1,109 @@
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5rem;
+    background-color: #5ba4df;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+  }
+  
+  header ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  header ul li {
+    margin: 0 1rem;
+  }
+
+  
+  header ul li button {
+    
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: #000000;
+    border: none;
+    border-radius: 0.5rem;
+    color: #ffffff;
+    cursor: pointer;
+  }
+  a {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: #000000;
+    border-radius: 0.5rem;
+    color: #ffffff;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .bienvenido{
+    margin-left: 10px;
+  }
+.portada {
+  padding-bottom: 100px;
+    background-color: #000000;
+    padding-top: 10%;
+    height: 100%;
+    background-size: cover;
+    // background-position: center;
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+    color: #ffffff;
+  }
+  
+  .portada header {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .portada header h1 {
+    font-size: 4rem;
+    text-shadow: 2px 2px #000000;
+  }
+  
+  .portada .descripcion {
+    text-align: center;
+  }
+  
+  .portada .descripcion p {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .portada .descripcion button {
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 0.5rem;
+    color: #000000;
+    cursor: pointer;
+  }
+
+.descripcion{
+  padding-top: 10%;
+      height: 300px;
+  }
+.contenido{
+  text-align: justify;
+  background-color: gainsboro;
+  color: black;
+  // width: 100%;
+  padding: 2%;
+  padding-left: 20%;
+  padding-right: 20%;
+  font-size: 20px;
+
+}

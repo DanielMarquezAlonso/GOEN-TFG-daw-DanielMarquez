@@ -1,0 +1,98 @@
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5rem;
+    background-color: #5ba4df;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+  }
+  
+  header ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  header ul li {
+    margin: 0 1rem;
+  }
+
+  
+  header ul li button {
+    
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: #000000;
+    border: none;
+    border-radius: 0.5rem;
+    color: #ffffff;
+    cursor: pointer;
+  }
+
+  // .portada {
+  //   background-color: #000000;
+  //   padding-top: 10%;
+  //   height: 150vh;
+  //   background-size: cover;
+  //   // background-position: center;
+  //   display: flex;
+  //   flex-direction: column;
+  //   // justify-content: center;
+  //   align-items: center;
+  //   color: #ffffff;
+  // }
+  
+  .portada header {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .portada header h1 {
+    font-size: 4rem;
+    text-shadow: 2px 2px #000000;
+  }
+  
+
+  .register-form-container {
+
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 5%;
+    padding: 20px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+  }
+  
+  .register-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input-field {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  .register-button {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .error-message {
+    margin-top: 10px;
+    color: red;
+    font-size: 14px;
+  }
